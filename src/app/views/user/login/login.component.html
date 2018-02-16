@@ -8,30 +8,30 @@
 <br/>
 <button (click)="login(username, password)">Login</button> -->
 
+<div class="container">
+  <h1>Login</h1>
 
-<!-- using angular form (ngForm) instead of traditional <input> tag -->
+  <!-- generate error message when there are input errors -->
+  <div *ngIf="errorFlag" class="alert alert-danger">
+    {{errorMsg}}
+  </div>
 
-<!-- generate error message when there are input errors -->
-<div *ngIf="errorFlag"
-     class="alert alert-danger">
-  {{errorMsg}}
+  <!-- using angular form (ngForm) instead of traditional <input> tag -->
+  <form (ngSubmit) = "login()" #f="ngForm">
+
+    <label for="username">Username</label>
+    <input placeholder="username" name="username" type="text" class="form-control" id="username" ngModel required #username="ngModel"/>
+    <span class="help-block" *ngIf="!username.valid && username.touched">
+      Please enter username!
+    </span>
+
+    <label for="password">Password</label>
+    <input placeholder="password" name="password" type="password" class="form-control" id="password" ngModel required #password="ngModel"/>
+    <span class="help-block" *ngIf="!username.valid && username.touched">
+      Please enter password!
+    </span>
+
+    <button class="btn btn-primary btn-block" type="submit" [disabled]="!f.valid">Login</button>
+    <button class="btn btn-success btn-block" routerLink="/register">Register</button>
+  </form>
 </div>
-
-<form (ngSubmit) = "login()" #f="ngForm">
-
-  <label for="username">Username</label>
-  <input placeholder="username" name="username" type="text" class="form-control" id="username" ngModel required #username="ngModel"/>
-  <span class="help-block" *ngIf="!username.valid && username.touched">
-    Please enter username!
-  </span>
-
-  <label for="password">Password</label>
-  <input placeholder="password" name="password" type="password" class="form-control" id="password" ngModel required #password="ngModel"/>
-  <span class="help-block" *ngIf="!username.valid && username.touched">
-    Please enter password!
-  </span>
-
-
-  <button class="btn btn-primary btn-block" type="submit" [disabled]="!f.valid">Login</button>
-  <button class="btn btn-success btn-block" type="submit">Register</button>
-</form>

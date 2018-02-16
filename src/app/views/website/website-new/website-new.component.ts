@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Website } from '../../../models/website.model.client';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-website-new',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WebsiteNewComponent implements OnInit {
 
-  constructor() { }
+  website: Website;
+  userId: String;
+  websites: Website[] = [];
 
-  ngOnInit() {
+  constructor(
+    @Inject('WebsiteService') private websiteService,
+    private activatedRoute: ActivatedRoute
+  ) { }
+
+  createWebsite() {
+    this.website = this.websiteService.createWebsite(this.userId, this.website);
+    console.log(this.website);
   }
 
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((params: any) => {
+      // alert('userId is' + this.userId);
+      this.userId = params['userId'];
+    });
+    this.website = this.websiteService.dumpWebsite();
+    this.websites = this.websiteService.findWebsitesByUser(this.userId);
+  }
 }

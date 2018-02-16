@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../../services/user.service.client';
 import { User } from '../../../models/user.model.client';
 
 @Component({
@@ -11,17 +10,22 @@ import { User } from '../../../models/user.model.client';
 export class ProfileComponent implements OnInit {
   // 'username' and 'userId' discarded because 'user' can do their job
   user: User;
+  updatedFlag: Boolean = false;
+  updatedMsg: String = 'Updated!';
+
   constructor(
     @Inject('UserService') private userService,
     private activatedRoute: ActivatedRoute
   ) { }
 
-  updateUser(user) {
-    console.log(user);
-    this.user = this.userService.updateUser(user);
+  updateUser() {
+    this.user = this.userService.updateUser(this.user._id, this.user);
+    console.log(this.user);
+    this.updatedFlag = true;
   }
+
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
+    this.activatedRoute.params.subscribe((params: any) => {
       // alert('userId is' + this.userId);
       this.user = this.userService.findUserById(params['userId']);
     });

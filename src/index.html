@@ -9,6 +9,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" onkeypress="
     "rel="stylesheet"/>
+    <link href="./assets/views/css/style.css" rel="stylesheet"/>
 
     <script src="http://code.jquery.com/jquery-3.3.1.js"
       integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -17,44 +18,19 @@
 
   </head>
   <body>
-    <input id="jobName">
-    <button id="jobSearch" onclick="searchJob()">search</button>
-    <ul id="jobs">
 
-    </ul>
+    <div class="container">
+      <div class="jumbotron">
+        <h2 class="display-3">READ ME</h2>
+        <p>Hi, there are some changes in this submission, listed as follows :)</p>
+        <ol>
+          <li>The methods in services do not return the reference of records in data array but a copy (for security)</li>
+          <li>IDs of the mock data were changed to avoid generating duplicate IDs when creating a new record</li>
+          <li>Several methods added in services for reducing duplicate codes or improving implementation</li>
+        </ol>
+      </div>
+    </div>
 
-    <script>
-
-      function searchJob() {
-        var input = $("#jobName").val();
-        var url = "https://jobs.github.com/positions.json?description=" +
-         input +
-          "&location=seattle";
-
-        var jobsList = $("#jobs");
-        $.get(
-          url,
-          {},
-          function(response) {
-            var jobs = response;
-            for (var i = 0; i < jobs.length; i++) {
-              var jobsLi = $("<li>");
-              var jobName = jobs[i].title;
-              jobsLi.append(jobName);
-              jobsList.prepend(jobsLi)
-            }
-          }
-        ,
-        "jsonp");
-      }
-
-    </script>
-
-    <h1>Assignment2 Link here:</h1>
-    <a href="./assets/index.html">
-      ./assets/index.html
-    </a>
-    <h1>The followings are for coming assignments:</h1>
     <app-root></app-root>
   </body>
 </html>
