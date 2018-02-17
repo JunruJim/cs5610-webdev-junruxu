@@ -25,7 +25,6 @@ export class WebsiteNewComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
-      // alert('userId is' + this.userId);
       this.userId = params['userId'];
     });
     this.website = this.websiteService.dumpWebsite();

@@ -4,16 +4,16 @@
       <div class="container-fluid row">
         <div class="col-sm-2 col-xs-12">
           <p class="navbar-text pull-left">
-            <a routerLink="/profile/{{userId}}/website" class="navbar-link cl-text-white">
+            <a routerLink=".." class="navbar-link cl-text-white">
               <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
           </p>
         </div>
         <div class="col-xs-10 hidden-xs">
-          <a class="cl-text-white navbar-brand cl-text-bold cl-icon-padding" routerLink="/profile/{{userId}}/website">
+          <a class="cl-text-white navbar-brand cl-text-bold cl-icon-padding" routerLink="..">
             Websites
           </a>
-          <a routerLink="/profile/{{userId}}/website/new" class="navbar-link navbar-text pull-right cl-text-white">
+          <a routerLink="../new" class="navbar-link navbar-text pull-right cl-text-white">
             <span class="glyphicon glyphicon-plus"></span>
           </a>
         </div>
@@ -21,10 +21,10 @@
     </div>
     <div class="col-xs-11 col-sm-8">
       <div class="container-fluid">
-        <a class="cl-text-white navbar-brand cl-text-bold pull-left" routerLink="/profile/{{userId}}/website/new">
+        <a class="cl-text-white navbar-brand cl-text-bold pull-left" routerLink=".">
           New Websites
         </a>
-        <a (click)="createWebsite()" routerLink="/profile/{{userId}}/website" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+        <a (click)="createWebsite()" routerLink=".." class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
           <span class="glyphicon glyphicon-ok"></span>
         </a>
       </div>
@@ -32,12 +32,12 @@
   </div>
 </nav>
 
-<div class="container">
+<div class="container-fluid">
   <div class="col-xs-4 hidden-xs">
     <ul class="list-group cl-list-group-borderless">
       <li *ngFor = "let websiteLi of websites" class="list-group-item cl-list-item-borderless">
-        <a routerLink="/profile/{{userId}}/website/{{websiteLi._id}}"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-        <a routerLink="/profile/{{userId}}/website/{{websiteLi._id}}/page">{{websiteLi.name}}</a>
+        <a routerLink="../{{websiteLi._id}}"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+        <a routerLink="../{{websiteLi._id}}/page">{{websiteLi.name}}</a>
       </li>
     </ul>
   </div>
@@ -58,7 +58,7 @@
 
 <nav class="navbar navbar-fixed-bottom cl-blue-navbar">
   <div class="container-fluid">
-    <a routerLink="/profile/{{userId}}" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+    <a routerLink="../.." class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </div>

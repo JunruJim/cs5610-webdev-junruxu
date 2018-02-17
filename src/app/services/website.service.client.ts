@@ -10,7 +10,8 @@ export class WebsiteService {
     { '_id': '8', 'name': 'Go',          'developerId': '1', 'description': 'Lorem' },
     { '_id': '5', 'name': 'Tic Tac Toe', 'developerId': '1', 'description': 'Lorem' },
     { '_id': '6', 'name': 'Checkers',    'developerId': '1', 'description': 'Lorem' },
-    { '_id': '7', 'name': 'Chess',       'developerId': '2', 'description': 'Lorem' }
+    { '_id': '7', 'name': 'Chess',       'developerId': '2', 'description': 'Lorem' },
+    { '_id': '3', 'name': 'Haha',        'developerId': '2', 'description': 'Lorem' }
   ];
 
   dumpWebsite() {

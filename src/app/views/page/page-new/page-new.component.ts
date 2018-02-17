@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Page } from '../../../models/page.model.client';
 
 @Component({
   selector: 'app-page-new',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageNewComponent implements OnInit {
 
-  constructor() { }
+  page: Page;
+  websiteId: String;
+  userId: String;
 
-  ngOnInit() {
+  constructor(
+    @Inject('PageService') private pageService,
+    private activatedRoute: ActivatedRoute
+  ) { }
+
+  createWebsite() {
+    this.page = this.pageService.createPage(this.websiteId, this.page);
+    console.log(this.page);
   }
 
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((params: any) => {
+      this.userId = params['userId'];
+      this.websiteId = params['websiteId'];
+    });
+    this.page = this.pageService.dumpPage();
+  }
 }

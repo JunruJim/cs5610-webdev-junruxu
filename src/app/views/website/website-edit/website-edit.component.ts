@@ -10,7 +10,6 @@ import { Website } from '../../../models/website.model.client';
 export class WebsiteEditComponent implements OnInit {
 
   website: Website;
-  userId: String;
   websites: Website[] = [];
 
   constructor(
@@ -29,10 +28,8 @@ export class WebsiteEditComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
-      // alert('userId is' + this.userId);
-      this.userId = params['userId'];
       this.website = this.websiteService.findWebsiteById(params['websiteId']);
+      this.websites = this.websiteService.findWebsitesByUser(params['userId']);
     });
-    this.websites = this.websiteService.findWebsitesByUser(this.userId);
   }
 }
