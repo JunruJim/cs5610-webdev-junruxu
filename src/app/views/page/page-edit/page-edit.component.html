@@ -1,18 +1,18 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid row">
     <div class="navbar-text pull-left">
-      <a routerLink="../" class="cl-text-black cl-icon-padding">
+      <a routerLink=".." class="cl-text-black cl-icon-padding">
         <span class="glyphicon glyphicon-chevron-left">
         </span>
       </a>
     </div>
     <div class="navbar-text pull-right">
-      <a (click)="updatePage()" routerLink="../" class="cl-icon-padding cl-text-black">
+      <a (click)="updatePage()" routerLink=".." class="cl-icon-padding cl-text-black">
         <span class="glyphicon glyphicon-ok">
         </span>
       </a>
     </div>
-    <a class="navbar-brand cl-text-white cl-text-bold" href="#">
+    <a class="navbar-brand cl-text-white cl-text-bold" routerLink=".">
       Edit Page
     </a>
   </div>
@@ -30,7 +30,7 @@
        <input [(ngModel)]="page.description" type="text" class="form-control" id="page-title" placeholder="Page Title" [ngModelOptions]="{standalone: true}">
      </div>
    </form>
-  <a class="btn btn-danger btn-block" (click)="deletePage()" routerLink="../">Delete</a>
+  <a class="btn btn-danger btn-block" (click)="deletePage()" routerLink="..">Delete</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">

@@ -11,7 +11,6 @@ export class PageNewComponent implements OnInit {
 
   page: Page;
   websiteId: String;
-  userId: String;
 
   constructor(
     @Inject('PageService') private pageService,
@@ -25,7 +24,6 @@ export class PageNewComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
-      this.userId = params['userId'];
       this.websiteId = params['websiteId'];
     });
     this.page = this.pageService.dumpPage();

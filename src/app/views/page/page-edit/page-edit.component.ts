@@ -10,8 +10,6 @@ import { Page } from '../../../models/page.model.client';
 export class PageEditComponent implements OnInit {
 
   page: Page;
-  websiteId: String;
-  userId: String;
 
   constructor(
     @Inject('PageService') private pageService,
@@ -29,9 +27,6 @@ export class PageEditComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
-      // alert('userId is' + this.userId);
-      this.userId = params['userId'];
-      this.websiteId = params['websiteId'];
       this.page = this.pageService.findPageById(params['pageId']);
     });
   }
