@@ -26,10 +26,10 @@ export class WidgetEditComponent implements OnInit {
         this.widget.widgetType = 'HEADING';
       } else if (this.widgetId === 'image') {
         this.widget.widgetType = 'IMAGE';
-      } else if (this.widgetId = 'youtube') {
+      } else if (this.widgetId === 'youtube') {
         this.widget.widgetType = 'YOUTUBE';
       } else {
-        this.widget = this.widgetService.findwidgetById(this.widgetId);
+        this.widget = this.widgetService.findWidgetById(this.widgetId);
       }
       console.log(this.widget);
     });

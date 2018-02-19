@@ -1,7 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {Page} from '../../../../models/page.model.client';
-import {ActivatedRoute} from '@angular/router';
-import {Widget} from '../../../../models/widget.model.client';
+import { Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Widget } from '../../../../models/widget.model.client';
 
 @Component({
   selector: 'app-widget-header',
@@ -40,7 +39,7 @@ export class WidgetHeaderComponent implements OnInit {
         this.widget = this.widgetService.dumpWidget();
         this.widget.widgetType = 'HEADING';
       } else {
-        this.widget = this.widgetService.findwidgetById(this.widgetId);
+        this.widget = this.widgetService.findWidgetById(this.widgetId);
       }
     });
   }

@@ -21,16 +21,16 @@
 <div class="container">
   <form>
     <div class="form-group">
-      <label for="heading-name">Name</label>
+      <label for="heading-name">Name (actually there is no attribute for this according to assignment doc)</label>
       <input type="text" class="form-control" id="heading-name" placeholder="Name">
     </div>
     <div class="form-group">
       <label for="heading-text">Text</label>
-      <input type="text" class="form-control" id="heading-text" placeholder="Text">
+      <input [(ngModel)]="widget.text" type="text" class="form-control" id="heading-text" placeholder="Text" [ngModelOptions]="{standalone: true}">
     </div>
     <div class="form-group">
       <label for="heading-size">Size</label>
-      <input type="text" class="form-control" id="heading-size" placeholder="Heading Size">
+      <input [(ngModel)]="widget.size" type="text" class="form-control" id="heading-size" placeholder="Heading Size" [ngModelOptions]="{standalone: true}">
     </div>
   </form>
   <a class="btn btn-danger  btn-block" (click)="deleteWidget()" routerLink="..">Delete</a>
