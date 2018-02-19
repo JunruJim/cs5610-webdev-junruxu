@@ -10,6 +10,8 @@ import { PageListComponent } from './views/page/page-list/page-list.component';
 import { PageEditComponent } from './views/page/page-edit/page-edit.component';
 import { PageNewComponent } from './views/page/page-new/page-new.component';
 import { WidgetListComponent } from './views/widget/widget-list/widget-list.component';
+import { WidgetChooserComponent } from './views/widget/widget-chooser/widget-chooser.component';
+import { WidgetEditComponent } from './views/widget/widget-edit/widget-edit.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -23,8 +25,8 @@ const appRoutes: Routes = [
   { path: 'profile/:userId/website/:websiteId/page/new', component: PageNewComponent },
   { path: 'profile/:userId/website/:websiteId/page/:pageId', component: PageEditComponent },
   { path: 'profile/:userId/website/:websiteId/page/:pageId/widget', component: WidgetListComponent },
-  // { path: 'profile/:userId/website/:websiteId/page/:pageId/widget/new', component: WidgetChooserComponent },
-  // { path: 'profile/:userId/website/:websiteId/page/:pageId/widget/new/:widgetId', component: WidgetEditComponent },
+  { path: 'profile/:userId/website/:websiteId/page/:pageId/widget/new', component: WidgetChooserComponent },
+  { path: 'profile/:userId/website/:websiteId/page/:pageId/widget/:widgetId', component: WidgetEditComponent },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
