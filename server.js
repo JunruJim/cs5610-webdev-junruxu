@@ -6,6 +6,7 @@ const path = require('path');
 const http = require('http');
 
 // parse info when receive
+// parse JSON file from HTTP response
 const bodyParser = require('body-parser');
 const app = express();
 
@@ -33,9 +34,21 @@ const server = http.createServer(app);
 //serverSide(app);
 
 // For Build: Catch all other routes and return the index file -- BUILDING
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
+// app.get('*', function (req, res) {
+//   res.sendFile(path.join(__dirname, 'dist/index.html'));
+// });
+
+
+var hello = require('./hello');
+hello(app);
+// or require('./hello')(app);
+
+app.get('/api/hahaha', function(req, res) {
+  res.send('hahaha');
 });
 
-server.listen( port , () => console.log('Running'));
+require("./assignment/app")(app);
 
+server.listen( port , function() {
+  console.log('Node app is running on port', app.get('port'))
+});

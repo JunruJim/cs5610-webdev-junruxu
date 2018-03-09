@@ -1,34 +1,25 @@
 import { Website } from '../models/website.model.client';
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import 'rxjs/Rx';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class WebsiteService {
-  websites: Website[] = [
-    { '_id': '1', 'name': 'Facebook',    'developerId': '4', 'description': 'Lorem' },
-    { '_id': '2', 'name': 'Tweeter',     'developerId': '4', 'description': 'Lorem' },
-    { '_id': '4', 'name': 'Gizmodo',     'developerId': '4', 'description': 'Lorem' },
-    { '_id': '8', 'name': 'Go',          'developerId': '1', 'description': 'Lorem' },
-    { '_id': '5', 'name': 'Tic Tac Toe', 'developerId': '1', 'description': 'Lorem' },
-    { '_id': '6', 'name': 'Checkers',    'developerId': '1', 'description': 'Lorem' },
-    { '_id': '7', 'name': 'Chess',       'developerId': '2', 'description': 'Lorem' },
-    { '_id': '3', 'name': 'Haha',        'developerId': '2', 'description': 'Lorem' }
-  ];
+
+  constructor(private http: Http) { }
+
+  baseUrl = environment.baseUrl;
 
   dumpWebsite() {
     return new Website(undefined, undefined, undefined, undefined);
   }
 
-  copyWebsite(website: Website) {
-    if (!website) {
-      return undefined;
-    }
-    return new Website(website._id, website.name, website.developerId, website.description);
-  }
-
   createWebsite(userId: String, website: Website) {
-    const createdWebsite = new Website(String(this.websites.length + 1), website.name, userId, website.description);
-    this.websites.push(createdWebsite);
-    return this.copyWebsite(createdWebsite);
+    return this.http.post(this.baseUrl + '/api/user/' + userId + '/website', website)
+      .map((res: Response) => {
+        return res.json();
+      });
   }
 
   findWebsitesByUser(userId: String) {

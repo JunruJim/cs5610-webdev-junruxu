@@ -2,7 +2,7 @@
   <h1>Register</h1>
 
   <!-- generate message when updated -->
-  <div *ngIf="pwInconsistentFlag" class="alert alert-success">
+  <div *ngIf="pwInconsistentFlag" class="alert alert-danger">
     {{pwInconsistentMsg}}
   </div>
 
@@ -17,7 +17,7 @@
     <input [(ngModel)]="verifyPwd" type="password" class="form-control" id="verifyPassword" placeholder="verify password" [ngModelOptions]="{standalone: true}"/>
 
     <br/>
-    <button class="btn btn-primary btn-block" routerLink="/profile/{{user._id}}" (click)="register()">Register</button>
+    <button class="btn btn-primary btn-block" (click)="register()">Register</button>
     <button class="btn btn-danger  btn-block" routerLink="/login">Cancel</button>
   </form>
 </div>

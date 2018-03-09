@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { routing } from './app.routing';
 
 import { UserService } from './services/user.service.client';
@@ -47,7 +48,8 @@ import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtub
   imports: [
     BrowserModule,
     routing,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
   providers: [
     {
