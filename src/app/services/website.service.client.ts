@@ -23,37 +23,28 @@ export class WebsiteService {
   }
 
   findWebsitesByUser(userId: String) {
-    const resultSet = [];
-    for (const website of this.websites) {
-      if (website.developerId === userId) {
-        resultSet.push(this.copyWebsite(website));
-      }
-    }
-    return resultSet;
+    return this.http.get(this.baseUrl + '/api/user/' + userId + '/website')
+      .map((res: Response) => {
+        return res.json();
+      });
   }
+
   findWebsiteById(websiteId: String) {
-    const foundWebsite = this.websites.find(function (website) {
-      return website._id === websiteId;
-    });
-    return this.copyWebsite(foundWebsite);
+    return this.http.get(this.baseUrl + '/api/website/' + websiteId)
+      .map((res: Response) => {
+        return res.json();
+      });
   }
 
   updateWebsite(websiteId: String, website: Website) {
-    const foundWebsite = this.websites.find(function(website) {
-      return website._id === websiteId;
-    });
-    foundWebsite.name = website.name;
-    foundWebsite.description = website.description;
-    return this.copyWebsite(foundWebsite);
+    return this.http.put(this.baseUrl + '/api/website/' + websiteId, website)
+      .map((res: Response) => {
+        return res.json();
+      });
   }
 
   deleteWebsite(websiteId: String) {
-    for (const i in this.websites) {
-      if (this.websites[i]._id === websiteId) {
-        const j = +i;
-        this.websites.splice(j, 1);
-      }
-    }
+    return this.http.delete(this.baseUrl + '/api/website/' + websiteId);
   }
 
 }

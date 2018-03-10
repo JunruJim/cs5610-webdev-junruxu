@@ -19,9 +19,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   register() {
-    console.log(this.user);
     if (this.user.password === this.verifyPwd) {
-      console.log(2);
       this.pwInconsistentFlag = false;
       this.userService.createUser(this.user).subscribe(
         (user: User) => {
@@ -31,7 +29,6 @@ export class RegisterComponent implements OnInit {
         }
       );
     } else {
-      console.log(3);
       this.pwInconsistentFlag = true;
     }
   }

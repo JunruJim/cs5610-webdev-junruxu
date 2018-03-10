@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Website } from '../../../models/website.model.client';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-website-new',
@@ -15,11 +15,17 @@ export class WebsiteNewComponent implements OnInit {
 
   constructor(
     @Inject('WebsiteService') private websiteService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   createWebsite() {
-    this.website = this.websiteService.createWebsite(this.userId, this.website);
+    this.websiteService.createWebsite(this.userId, this.website).subscribe(
+      (website: Website) => {
+        this.website = website;
+        this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+      }
+    );
     console.log(this.website);
   }
 
@@ -28,6 +34,10 @@ export class WebsiteNewComponent implements OnInit {
       this.userId = params['userId'];
     });
     this.website = this.websiteService.dumpWebsite();
-    this.websites = this.websiteService.findWebsitesByUser(this.userId);
+    this.websiteService.findWebsitesByUser(this.userId).subscribe(
+      (websites: Website[]) => {
+        this.websites = websites;
+      }
+    );
   }
 }

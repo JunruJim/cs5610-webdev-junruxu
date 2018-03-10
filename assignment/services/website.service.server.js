@@ -26,66 +26,57 @@ module.exports = function (app) {
     res.json(createdWebsite);
   }
 
-  function findUserById(req, res){
+  function findAllWebsitesForUser(req, res) {
+    var resultSet = [];
     var userId = req.params["userId"];
-    var foundUser = users.find(function (user) {
-      return user._id === userId;
+
+    // it is key not the value
+    for (var index in websites) {
+      if (websites[index].developerId === userId) {
+        resultSet.push(websites[index]);
+      }
+    }
+    // for(var i = 0; i < websites.length; i++) {
+    //   if (websites[i].developerId === userId) {
+    //     resultSet.push(websites[i]);
+    //   }
+    // }
+    res.json(resultSet);
+  }
+
+  function findWebsiteById(req, res){
+    var websiteId = req.params["websiteId"];
+    var foundWebsite = websites.find(function (website) {
+      return website._id === websiteId;
     });
-    if (foundUser){
-      res.json(foundUser);
+    if (foundWebsite){
+      res.json(foundWebsite);
     } else {
-      res.status(404);
-      res.send('no user found');
+      res.status(401);
+      res.send('no website found');
     }
   }
 
-  function updateUser(req, res) {
-    var userId = req.params["userId"];
-    var foundUser = users.find(function (user) {
-      return user._id === userId;
+  function updateWebsite(req, res) {
+    var websiteId = req.params["websiteId"];
+    var foundWebsite = websites.find(function (website) {
+      return website._id === websiteId;
     });
-    var user = req.body;
-    foundUser.username = user.username;
-    foundUser.password = user.password;
-    foundUser.firstName = user.firstName;
-    foundUser.lastName = user.lastName;
-    res.json(foundUser);
+    var website = req.body;
+    foundWebsite.name = website.name;
+    foundWebsite.developerId = website.developerId;
+    foundWebsite.description = website.description;
+    res.json(foundWebsite);
   }
 
-  function findUserByCredentialOrUsername(req, res){
-    var username = req.query["username"];
-    var password = req.query["password"];
-    if (username && password){
-      var foundUserByCredential = users.find(function (user){
-        return user.username === username && user.password === password;
-      });
-      if (foundUserByCredential){
-        res.json(foundUserByCredential);
-      } else {
-        res.status(401);
-        res.send('no user found');
+  function deleteWebsite(req, res) {
+    var websiteId = req.params["websiteId"];
+    for (const i in websites) {
+      if (websites[i]._id === websiteId) {
+        const j = +i;
+        websites.splice(j, 1);
       }
-      return;
     }
-
-    // should return a list if username is not unique
-    else if (username){
-      var foundUserByUsername = users.find(function (user) {
-        return user.username === username;
-      });
-      if (foundUserByUsername) {
-        res.json(foundUserByUsername);
-      } else {
-        res.status(401);
-        res.send('no user found');
-      }
-      return;
-    }
-    res.status(401);
-    res.send('no user found');
-  }
-
-  function deleteUser(req, res) {
-
+    res.send("success");
   }
 };
