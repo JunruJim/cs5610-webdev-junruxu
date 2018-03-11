@@ -31,16 +31,16 @@ module.exports = function (app) {
     var userId = req.params["userId"];
 
     // it is key not the value
-    for (var index in websites) {
-      if (websites[index].developerId === userId) {
-        resultSet.push(websites[index]);
-      }
-    }
-    // for(var i = 0; i < websites.length; i++) {
-    //   if (websites[i].developerId === userId) {
-    //     resultSet.push(websites[i]);
+    // for (var index in websites) {
+    //   if (websites[index].developerId === userId) {
+    //     resultSet.push(websites[index]);
     //   }
     // }
+    for(var i = 0; i < websites.length; i++) {
+      if (websites[i].developerId === userId) {
+        resultSet.push(websites[i]);
+      }
+    }
     res.json(resultSet);
   }
 
@@ -53,7 +53,7 @@ module.exports = function (app) {
       res.json(foundWebsite);
     } else {
       res.status(401);
-      res.send('no website found');
+      res.json(foundWebsite);
     }
   }
 

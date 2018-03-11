@@ -54,7 +54,7 @@ export class UserService {
       });
   }
 
-  deleteUser() {
-
+  deleteUser(userId: String) {
+    return this.http.delete(this.baseUrl + '/api/user/' + userId);
   }
 }

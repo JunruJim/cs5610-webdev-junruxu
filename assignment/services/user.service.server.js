@@ -41,7 +41,7 @@ module.exports = function (app) {
       res.json(foundUser);
     } else {
       res.status(401);
-      res.send('no user found');
+      res.json(foundUser);
     }
   }
 
@@ -69,7 +69,7 @@ module.exports = function (app) {
         res.json(foundUserByCredential);
       } else {
         res.status(401);
-        res.send('no user found');
+        res.json(foundUserByCredential);
       }
       return;
     }
@@ -83,15 +83,22 @@ module.exports = function (app) {
         res.json(foundUserByUsername);
       } else {
         res.status(401);
-        res.send('no user found');
+        res.json(foundUserByUsername);
       }
       return;
     }
     res.status(401);
-    res.send('no user found');
+    res.send(undefined);
   }
 
   function deleteUser(req, res) {
-
+    var userId = req.params["userId"];
+    for (const i in users) {
+      if (users[i]._id === userId) {
+        const j = +i;
+        users.splice(j, 1);
+      }
+    }
+    res.send("success");
   }
 };

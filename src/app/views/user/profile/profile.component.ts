@@ -30,6 +30,10 @@ export class ProfileComponent implements OnInit {
     this.updatedFlag = true;
   }
 
+  deleteUser() {
+    this.userService.deleteUser(this.user._id).subscribe();
+  }
+
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
       // alert('userId is' + this.userId);

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from '../../../models/page.model.client';
 
 @Component({
@@ -14,11 +14,17 @@ export class PageNewComponent implements OnInit {
 
   constructor(
     @Inject('PageService') private pageService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   createWebsite() {
-    this.page = this.pageService.createPage(this.websiteId, this.page);
+    this.pageService.createPage(this.websiteId, this.page).subscribe(
+      (page: Page) => {
+        this.page = page;
+        this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+      }
+    );
     console.log(this.page);
   }
 
