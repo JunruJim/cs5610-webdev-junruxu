@@ -23,11 +23,11 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.user._id, this.user).subscribe(
       (user: User) => {
         this.user = user;
+        console.log(this.user);
+        this.updatedFlag = true;
       }
     );
     // });
-    console.log(this.user);
-    this.updatedFlag = true;
   }
 
   deleteUser() {

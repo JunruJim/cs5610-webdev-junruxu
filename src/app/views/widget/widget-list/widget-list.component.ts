@@ -22,15 +22,18 @@ export class WidgetListComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
-      this.widgets = this.widgetService.findWidgetsByPageId(params['pageId']);
+      this.widgetService.findWidgetsByPageId(params['pageId']).subscribe(
+        (widgets: Widget[]) => {
+          this.widgets = widgets;
+          console.log(this.widgets);
+          for (const widget of this.widgets) {
+            if (widget.widgetType === 'YOUTUBE') {
+              this.urls.push(this.domSanitizer.bypassSecurityTrustResourceUrl(String(widget.url)));
+            }
+          }
+        }
+      );
     });
-
-    for (const widget of this.widgets) {
-      if (widget.widgetType === 'YOUTUBE') {
-        this.urls.push(this.domSanitizer.bypassSecurityTrustResourceUrl(String(widget.url)));
-      }
-    }
-    console.log(this.widgets);
   }
 
 }

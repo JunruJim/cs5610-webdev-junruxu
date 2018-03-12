@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Widget } from '../../../../models/widget.model.client';
 
 @Component({
@@ -15,7 +15,8 @@ export class WidgetHeaderComponent implements OnInit {
 
   constructor(
     @Inject('WidgetService') private widgetService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   updateOrCreateWidget() {
@@ -28,7 +29,11 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   deleteWidget() {
-    this.widgetService.deleteWidget(this.widget._id);
+    this.widgetService.deleteWidget(this.widget._id).subscribe(
+      () => {
+        this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+      }
+    );
   }
 
   ngOnInit() {

@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Widget} from '../../../../models/widget.model.client';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-widget-image',
@@ -15,20 +15,37 @@ export class WidgetImageComponent implements OnInit {
 
   constructor(
     @Inject('WidgetService') private widgetService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   updateOrCreateWidget() {
     if (!this.widget._id) {
-      this.widget = this.widgetService.createWidget(this.pageId, this.widget);
+      this.widgetService.createWidget(this.pageId, this.widget).subscribe(
+        (widget: Widget) => {
+          this.widget = widget;
+          this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+          console.log(this.widget);
+        }
+      );
     } else {
-      this.widget = this.widgetService.updateWidget(this.widget._id, this.widget);
+      this.widgetService.updateWidget(this.widget._id, this.widget).subscribe(
+        (widget: Widget) => {
+          this.widget = widget;
+          this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+          console.log(this.widget);
+        }
+      );
     }
     console.log(this.widget);
   }
 
   deleteWidget() {
-    this.widgetService.deleteWidget(this.widget._id);
+    this.widgetService.deleteWidget(this.widget._id).subscribe(
+      () => {
+        this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+      }
+    );
   }
 
   ngOnInit() {
@@ -39,7 +56,12 @@ export class WidgetImageComponent implements OnInit {
         this.widget = this.widgetService.dumpWidget();
         this.widget.widgetType = 'IMAGE';
       } else {
-        this.widget = this.widgetService.findWidgetById(this.widgetId);
+        this.widgetService.findWidgetById(this.widgetId).subscribe(
+          (widget: Widget) => {
+            this.widget = widget;
+            console.log(this.widget);
+          }
+        );
       }
     });
   }

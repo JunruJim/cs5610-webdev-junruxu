@@ -20,18 +20,26 @@ export class WidgetEditComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
-      this.widget = this.widgetService.dumpWidget();
       this.widgetId = (params['widgetId']);
+
+      // new
+      this.widget = this.widgetService.dumpWidget();
       if (this.widgetId === 'heading') {
         this.widget.widgetType = 'HEADING';
       } else if (this.widgetId === 'image') {
         this.widget.widgetType = 'IMAGE';
       } else if (this.widgetId === 'youtube') {
         this.widget.widgetType = 'YOUTUBE';
+
+      // update
       } else {
-        this.widget = this.widgetService.findWidgetById(this.widgetId);
+        this.widgetService.findWidgetById(this.widgetId).subscribe(
+          (widget: Widget) => {
+            this.widget = widget;
+            console.log(this.widget);
+          }
+        );
       }
-      console.log(this.widget);
     });
   }
 

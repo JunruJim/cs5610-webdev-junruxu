@@ -22,9 +22,9 @@ export class PageEditComponent implements OnInit {
       (page: Page) => {
         this.page = page;
         this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+        console.log(this.page);
       }
     );
-    console.log(this.page);
   }
 
   deletePage() {

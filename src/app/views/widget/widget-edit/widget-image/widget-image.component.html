@@ -7,7 +7,7 @@
       </a>
     </div>
     <div class="navbar-text pull-right">
-      <a routerLink=".." (click)="updateOrCreateWidget()" class="cl-icon-padding cl-text-black">
+      <a (click)="updateOrCreateWidget()" class="cl-icon-padding cl-text-black">
         <span class="glyphicon glyphicon-ok">
         </span>
       </a>
@@ -42,7 +42,7 @@
     </div>
   </form>
   <a class="btn btn-primary btn-block" routerLink=".">Upload Image</a>
-  <a class="btn btn-danger  btn-block" (click)="deleteWidget()" routerLink="..">Delete</a>
+  <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">

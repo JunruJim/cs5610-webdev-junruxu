@@ -24,9 +24,9 @@ export class WebsiteNewComponent implements OnInit {
       (website: Website) => {
         this.website = website;
         this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+        console.log(this.website);
       }
     );
-    console.log(this.website);
   }
 
   ngOnInit() {
