@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Widget } from '../../../../models/widget.model.client';
 
 @Component({
@@ -21,11 +21,20 @@ export class WidgetHeaderComponent implements OnInit {
 
   updateOrCreateWidget() {
     if (!this.widget._id) {
-      this.widget = this.widgetService.createWidget(this.pageId, this.widget);
+      this.widgetService.createWidget(this.pageId, this.widget).subscribe(
+        (widget: Widget) => {
+          this.widget = widget;
+          this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+          console.log(this.widget);
+        }
+      );
     } else {
-      this.widget = this.widgetService.updateWidget(this.widget._id, this.widget);
+      this.widgetService.updateWidget(this.widget._id, this.widget).subscribe(
+        () => {
+          this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+        }
+      );
     }
-    console.log(this.widget);
   }
 
   deleteWidget() {
@@ -44,7 +53,12 @@ export class WidgetHeaderComponent implements OnInit {
         this.widget = this.widgetService.dumpWidget();
         this.widget.widgetType = 'HEADING';
       } else {
-        this.widget = this.widgetService.findWidgetById(this.widgetId);
+        this.widgetService.findWidgetById(this.widgetId).subscribe(
+          (widget: Widget) => {
+            this.widget = widget;
+            console.log(this.widget);
+          }
+        );
       }
     });
   }

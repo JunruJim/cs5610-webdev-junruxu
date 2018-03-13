@@ -1,6 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {Widget} from '../../../../models/widget.model.client';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Widget } from '../../../../models/widget.model.client';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-widget-image',
@@ -30,14 +30,11 @@ export class WidgetImageComponent implements OnInit {
       );
     } else {
       this.widgetService.updateWidget(this.widget._id, this.widget).subscribe(
-        (widget: Widget) => {
-          this.widget = widget;
+        () => {
           this.router.navigate(['../'], {relativeTo: this.activatedRoute});
-          console.log(this.widget);
         }
       );
     }
-    console.log(this.widget);
   }
 
   deleteWidget() {

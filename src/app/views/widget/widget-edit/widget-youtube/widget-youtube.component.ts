@@ -1,6 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {Widget} from '../../../../models/widget.model.client';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Widget } from '../../../../models/widget.model.client';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-widget-youtube',
@@ -21,11 +21,20 @@ export class WidgetYoutubeComponent implements OnInit {
 
   updateOrCreateWidget() {
     if (!this.widget._id) {
-      this.widget = this.widgetService.createWidget(this.pageId, this.widget);
+      this.widgetService.createWidget(this.pageId, this.widget).subscribe(
+        (widget: Widget) => {
+          this.widget = widget;
+          this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+          console.log(this.widget);
+        }
+      );
     } else {
-      this.widget = this.widgetService.updateWidget(this.widget._id, this.widget);
+      this.widgetService.updateWidget(this.widget._id, this.widget).subscribe(
+        () => {
+          this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+        }
+      );
     }
-    console.log(this.widget);
   }
 
   deleteWidget() {
@@ -44,7 +53,12 @@ export class WidgetYoutubeComponent implements OnInit {
         this.widget = this.widgetService.dumpWidget();
         this.widget.widgetType = 'YOUTUBE';
       } else {
-        this.widget = this.widgetService.findWidgetById(this.widgetId);
+        this.widgetService.findWidgetById(this.widgetId).subscribe(
+          (widget: Widget) => {
+            this.widget = widget;
+            console.log(this.widget);
+          }
+        );
       }
     });
   }
