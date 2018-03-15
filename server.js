@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Point static path to dist -- For building -- REMOVE
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'src/assets')));
 
 // CORS
 app.use(function(req, res, next) {
@@ -35,18 +36,15 @@ const server = http.createServer(app);
 //serverSide(app);
 
 // For Build: Catch all other routes and return the index file -- BUILDING
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
-});
+// app.get('*', function (req, res) {
+//   // res.sendFile(path.join(__dirname, 'dist/index.html'));
+//   res.sendFile(path.join(__dirname, 'src/index.html'));
+// });
 
 
 // var hello = require('./hello');
 // hello(app);
 // or require('./hello')(app);
-
-app.get('/api/hahaha', function(req, res) {
-  res.send('hahaha');
-});
 
 require("./assignment/app")(app);
 
