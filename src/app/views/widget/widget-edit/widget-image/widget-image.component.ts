@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Widget } from '../../../../models/widget.model.client';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-widget-image',
@@ -12,6 +13,9 @@ export class WidgetImageComponent implements OnInit {
   widget: Widget;
   widgetId: String;
   pageId: String;
+  websiteId: String;
+  userId: String;
+  baseUrl: String;
 
   constructor(
     @Inject('WidgetService') private widgetService,
@@ -46,9 +50,13 @@ export class WidgetImageComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.baseUrl = environment.baseUrl;
     this.activatedRoute.params.subscribe((params: any) => {
       this.widgetId = params['widgetId'];
       this.pageId = params['pageId'];
+      this.websiteId = params['websiteId'];
+      this.userId = params['userId'];
       if (this.widgetId === 'image') {
         this.widget = this.widgetService.dumpWidget();
         this.widget.widgetType = 'IMAGE';

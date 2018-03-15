@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Widget } from '../../../models/widget.model.client';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-widget-list',
@@ -11,26 +10,31 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class WidgetListComponent implements OnInit {
 
   widgets: Widget[] = [];
+  pageId: String;
   public urls = [];
   i = 0;
 
   constructor(
     @Inject('WidgetService') private widgetService,
-    private activatedRoute: ActivatedRoute,
-    private domSanitizer: DomSanitizer
+    private activatedRoute: ActivatedRoute
   ) { }
+
+  // receiving the emitted event
+  reorderWidgets(indexes) {
+    // call widget service function to update widget as per index
+    this.widgetService.reorderWidgets(indexes.startIndex, indexes.endIndex, this.pageId)
+      .subscribe(
+        (data) => console.log(data)
+      );
+  }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
-      this.widgetService.findWidgetsByPageId(params['pageId']).subscribe(
+      this.pageId = params['pageId'];
+      this.widgetService.findWidgetsByPageId(this.pageId).subscribe(
         (widgets: Widget[]) => {
           this.widgets = widgets;
           console.log(this.widgets);
-          for (const widget of this.widgets) {
-            if (widget.widgetType === 'YOUTUBE') {
-              this.urls.push(this.domSanitizer.bypassSecurityTrustResourceUrl(String(widget.url)));
-            }
-          }
         }
       );
     });

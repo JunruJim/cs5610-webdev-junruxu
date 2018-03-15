@@ -25,6 +25,9 @@ import { WidgetEditComponent } from './views/widget/widget-edit/widget-edit.comp
 import { WidgetHeaderComponent } from './views/widget/widget-edit/widget-header/widget-header.component';
 import { WidgetImageComponent } from './views/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
+import { SortableDirective } from '../../assignment/directives/sortable.directive';
+import { OrderByPipe } from '../../assignment/pipes/order-by-pipe/order-by-pipe.pipe';
+import { SafePipe } from '../../assignment/pipes/safe-url/safe-url.pipe';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,10 @@ import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtub
     WidgetEditComponent,
     WidgetHeaderComponent,
     WidgetImageComponent,
-    WidgetYoutubeComponent
+    WidgetYoutubeComponent,
+    SortableDirective,
+    OrderByPipe,
+    SafePipe
   ],
   imports: [
     BrowserModule,

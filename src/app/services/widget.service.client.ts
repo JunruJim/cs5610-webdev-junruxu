@@ -11,6 +11,15 @@ export class WidgetService {
 
   baseUrl = environment.baseUrl;
 
+  reorderWidgets(startIndex, endIndex, pageId) {
+    return this.http.put(this.baseUrl + '/api/page/' + pageId + '/widget?start=' + startIndex + '&end=' + endIndex, '')
+      .map(
+        (res: Response) => {
+          return res.json();
+        }
+      );
+  }
+
   dumpWidget() {
     return new Widget(undefined, undefined, undefined);
   }
@@ -45,5 +54,4 @@ export class WidgetService {
   deleteWidget(widgetId: String) {
     return this.http.delete(this.baseUrl + '/api/widget/' + widgetId);
   }
-
 }

@@ -36,13 +36,19 @@
       <label for="image-width">Width</label>
       <input [(ngModel)]="widget.width" type="text" class="form-control" id="image-width" placeholder="Width percentage" [ngModelOptions]="{standalone: true}">
     </div>
-    <div class="form-group">
-      <label for="exampleInputFile">Upload</label>
-      <input type="file" class="form-control" id="exampleInputFile">
-    </div>
   </form>
-  <a class="btn btn-primary btn-block" routerLink=".">Upload Image</a>
-  <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
+
+  <form ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">
+    <label for="myFile">Upload Image</label>
+    <input  name="myFile" id="myFile"  type="file" class="form-control form-group"/>
+    <input  name="widgetId" value="{{widget._id}}" style="display: none"/>
+    <input  name="pageId" value="{{pageId}}" style="display: none"/>
+    <input  name="websiteId" value="{{websiteId}}" style="display: none"/>
+    <input  name="userId" value="{{userId}}" style="display: none"/>
+    <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
+    <br/>
+  </form>
+  <a class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
