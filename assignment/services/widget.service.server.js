@@ -36,8 +36,8 @@ module.exports = function (app) {
     var myFile        = req.file;
 
     if(myFile == null) {
-      // res.redirect("http://localhost:4200/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
-      res.redirect("https://cs5610-webdev-junruxu.herokuapp.com/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
+      // res.redirect("http://localhost:4200/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+      res.redirect("https://cs5610-webdev-junruxu.herokuapp.com/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
       return;
     }
 
@@ -51,10 +51,10 @@ module.exports = function (app) {
     var foundWidget = widgets.find(function (widget) {
       return widget._id === widgetId;
     });
-    foundWidget.url = "/assets/uploads/" + filename;
+    foundWidget.url = "https://cs5610-webdev-junruxu.herokuapp.com/assets/uploads/" + filename;
 
-    // res.redirect("http://localhost:4200/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
-    res.redirect("https://cs5610-webdev-junruxu.herokuapp.com/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
+    // res.redirect("http://localhost:4200/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+    res.redirect("https://cs5610-webdev-junruxu.herokuapp.com/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
 
   }
 
