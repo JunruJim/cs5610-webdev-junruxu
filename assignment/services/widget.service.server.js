@@ -1,7 +1,7 @@
 module.exports = function (app) {
 
   var multer = require('multer'); // npm install multer --save
-  var upload = multer({ dest: __dirname+'/../../src/assets/uploads' });
+  var upload = multer({ dest: __dirname + '/../../src/assets/uploads' });
 
   app.post("/api/page/:pageId/widget", createWidget);
   app.get("/api/page/:pageId/widget", findAllWidgetsForPage);
@@ -28,12 +28,12 @@ module.exports = function (app) {
   ];
 
   function uploadImage(req, res) {
+    var widgetId      = req.body.widgetId;
+    var width         = req.body.width;
+    var myFile        = req.file;
     var userId = req.body.userId;
     var websiteId = req.body.websiteId;
     var pageId = req.body.pageId;
-
-    var widgetId      = req.body.widgetId;
-    var myFile        = req.file;
 
     if(myFile == null) {
       // res.redirect("http://localhost:4200/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
@@ -41,12 +41,12 @@ module.exports = function (app) {
       return;
     }
 
-    // var originalname  = myFile.originalname; // file name on user's computer
+    var originalname  = myFile.originalname; // file name on user's computer
     var filename      = myFile.filename;     // new file name in upload folder
-    // var path          = myFile.path;         // full path of uploaded file
-    // var destination   = myFile.destination;  // folder where file is saved to
-    // var size          = myFile.size;
-    // var mimetype      = myFile.mimetype;
+    var path          = myFile.path;         // full path of uploaded file
+    var destination   = myFile.destination;  // folder where file is saved to
+    var size          = myFile.size;
+    var mimetype      = myFile.mimetype;
 
     var foundWidget = widgets.find(function (widget) {
       return widget._id === widgetId;

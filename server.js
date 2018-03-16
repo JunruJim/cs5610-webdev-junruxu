@@ -1,14 +1,14 @@
 
 // Get the dependencies
-
 const express = require('express');
-const path = require('path');
-const http = require('http');
 
 // parse info when receive
 // parse JSON file from HTTP response
 const bodyParser = require('body-parser');
 const app = express();
+
+const path = require('path');
+const http = require('http');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,14 +34,11 @@ const server = http.createServer(app);
 //var serverSide = require("./server/test-mongodb/app");
 //serverSide(app);
 
-
-
 // var hello = require('./hello');
 // hello(app);
 // or require('./hello')(app);
 
 require("./assignment/app")(app);
-
 
 // For Build: Catch all other routes and return the index file -- BUILDING
 app.get('*', function (req, res) {
