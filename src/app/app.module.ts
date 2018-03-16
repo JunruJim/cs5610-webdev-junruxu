@@ -25,9 +25,14 @@ import { WidgetEditComponent } from './views/widget/widget-edit/widget-edit.comp
 import { WidgetHeaderComponent } from './views/widget/widget-edit/widget-header/widget-header.component';
 import { WidgetImageComponent } from './views/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
+import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widget-text.component';
+import { WidgetHtmlComponent } from './views/widget/widget-edit/widget-html/widget-html.component';
+
 import { SortableDirective } from '../../assignment/directives/sortable.directive';
 import { OrderByPipe } from '../../assignment/pipes/order-by-pipe/order-by-pipe.pipe';
 import { SafePipe } from '../../assignment/pipes/safe-url/safe-url.pipe';
+
+import { QuillEditorModule } from 'ngx-quill-editor';
 
 @NgModule({
   declarations: [
@@ -49,13 +54,16 @@ import { SafePipe } from '../../assignment/pipes/safe-url/safe-url.pipe';
     WidgetYoutubeComponent,
     SortableDirective,
     OrderByPipe,
-    SafePipe
+    SafePipe,
+    WidgetHtmlComponent,
+    WidgetTextComponent
   ],
   imports: [
     BrowserModule,
     routing,
     FormsModule,
-    HttpModule
+    HttpModule,
+    QuillEditorModule
   ],
   providers: [
     {

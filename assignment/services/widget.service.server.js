@@ -12,19 +12,19 @@ module.exports = function (app) {
   app.post ("/api/upload", upload.single('myFile'), uploadImage);
 
   var widgets = [
-    { '_id': '1', 'widgetType': 'HEADING', 'pageId': '3', 'size': 2, 'text': 'GIZMODO', 'url': undefined, 'width': undefined },
-    { '_id': '2', 'widgetType': 'HEADING', 'pageId': '3', 'size': 4, 'text': 'Lorem ipsum', 'url': undefined, 'width': undefined },
+    { '_id': '1', 'widgetType': 'HEADING', 'pageId': '3', 'size': 2, 'text': 'GIZMODO', 'url': undefined, 'width': undefined, 'formatted': false },
+    { '_id': '2', 'widgetType': 'HEADING', 'pageId': '3', 'size': 4, 'text': 'Lorem ipsum', 'url': undefined, 'width': undefined, 'formatted': false },
     { '_id': '3', 'widgetType': 'IMAGE', 'pageId': '3', 'width': '100%',
-      'url': 'http://lorempixel.com/400/200/', 'size': undefined, 'text': 'it is a image' },
-    { '_id': '4', 'widgetType': 'HTML', 'pageId': '3', 'text': '<p>Lorem ipsum</p>',
-      'url': undefined, 'width': undefined, 'size': undefined },
-    { '_id': '5', 'widgetType': 'HEADING', 'pageId': '3', 'size': 4, 'text': 'Lorem ipsum', 'url': undefined, 'width': undefined },
+      'url': 'http://lorempixel.com/400/200/', 'size': undefined, 'text': 'it is a image', 'formatted': false },
+    { '_id': '4', 'widgetType': 'HTML', 'pageId': '3', 'text': '<p>HTML1 <b>HELLO</b></p>',
+      'url': undefined, 'width': undefined, 'size': undefined, 'formatted': false },
+    { '_id': '5', 'widgetType': 'HEADING', 'pageId': '3', 'size': 4, 'text': 'Lorem ipsum', 'url': undefined, 'width': undefined, 'formatted': false },
     { '_id': '6', 'widgetType': 'YOUTUBE', 'pageId': '3', 'width': '100%',
-      'url': 'https://www.youtube.com/embed/AM2Ivdi9c4E', 'size': undefined, 'text': undefined },
-    { '_id': '7', 'widgetType': 'HTML', 'pageId': '3', 'text': '<p>Lorem ipsum</p>',
-      'url': undefined, 'width': undefined, 'size': undefined },
+      'url': 'https://www.youtube.com/embed/AM2Ivdi9c4E', 'size': undefined, 'text': undefined, 'formatted': false },
+    { '_id': '7', 'widgetType': 'HTML', 'pageId': '3', 'text': '<p>I am a <i>HTML</i>, haha :)</p>',
+      'url': undefined, 'width': undefined, 'size': undefined, 'formatted': false },
     { '_id': '8', 'widgetType': 'TEXT', 'pageId': '3', 'text': 'Some Text',
-      'url': undefined, 'width': undefined, 'size': undefined }
+      'url': undefined, 'width': undefined, 'size': undefined, 'formatted': true }
   ];
 
   function uploadImage(req, res) {
@@ -48,14 +48,19 @@ module.exports = function (app) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
-    var foundWidget = widgets.find(function (widget) {
-      return widget._id === widgetId;
-    });
-    // foundWidget.url = "http://localhost:3100/assets/uploads/" + filename;
-    foundWidget.url = "/uploads/" + filename;
+    if (!widgetId) {
+      var tobeCreated = {_id: (widgets.length + 1).toString(), widgetType: 'IMAGE', pageId: pageId, size: size, text: 'text', width:'100%',
+        url:'/uploads/' + filename, formatted: false};
+      widgets.push(tobeCreated);
+    } else {
+      var foundWidget = widgets.find(function (widget) {
+        return widget._id === widgetId;
+      });
+      foundWidget.url = "/uploads/" + filename;
+    }
+
     // res.redirect("http://localhost:4200/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
     res.redirect("https://cs5610-webdev-junruxu.herokuapp.com/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
-
   }
 
   function reorderWidgets(req,res) {
@@ -129,6 +134,7 @@ module.exports = function (app) {
     foundWidget.text = widget.text;
     foundWidget.width = widget.width;
     foundWidget.url = widget.url;
+    foundWidget.formatted = widget.formatted;
     res.json(foundWidget);
   }
 

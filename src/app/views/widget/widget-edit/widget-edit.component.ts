@@ -30,6 +30,10 @@ export class WidgetEditComponent implements OnInit {
         this.widget.widgetType = 'IMAGE';
       } else if (this.widgetId === 'youtube') {
         this.widget.widgetType = 'YOUTUBE';
+      } else if (this.widgetId === 'text') {
+        this.widget.widgetType = 'TEXT';
+      } else if (this.widgetId === 'html') {
+        this.widget.widgetType = 'HTML';
 
       // update
       } else {
