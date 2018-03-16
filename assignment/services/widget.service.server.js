@@ -1,7 +1,7 @@
 module.exports = function (app) {
 
   var multer = require('multer'); // npm install multer --save
-  var upload = multer({ dest: __dirname + 'src/assets/uploads'});
+  var upload = multer({ dest: __dirname+'/../../src/assets/uploads' });
 
   app.post("/api/page/:pageId/widget", createWidget);
   app.get("/api/page/:pageId/widget", findAllWidgetsForPage);
@@ -52,7 +52,7 @@ module.exports = function (app) {
       return widget._id === widgetId;
     });
     // foundWidget.url = "http://localhost:3100/assets/uploads/" + filename;
-    foundWidget.url = "https://cs5610-webdev-junruxu.herokuapp.com/assets/uploads/" + filename;
+    foundWidget.url = "/uploads/" + filename;
     // res.redirect("http://localhost:4200/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
     res.redirect("https://cs5610-webdev-junruxu.herokuapp.com/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
 
