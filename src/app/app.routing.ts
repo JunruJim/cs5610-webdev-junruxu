@@ -27,7 +27,7 @@ const appRoutes: Routes = [
   { path: 'profile/:userId/website/:websiteId/page/:pageId/widget', component: WidgetListComponent },
   { path: 'profile/:userId/website/:websiteId/page/:pageId/widget/new', component: WidgetChooserComponent },
   { path: 'profile/:userId/website/:websiteId/page/:pageId/widget/:widgetId', component: WidgetEditComponent },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' },
+  // { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
