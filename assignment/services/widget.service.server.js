@@ -49,7 +49,7 @@ module.exports = function (app) {
     var mimetype      = myFile.mimetype;
 
     if (!widgetId) {
-      var tobeCreated = {_id: (widgets.length + 1).toString(), widgetType: 'IMAGE', pageId: pageId, size: size, text: 'text', width:'100%',
+      var tobeCreated = {_id: new Date().getTime().toString(), widgetType: 'IMAGE', pageId: pageId, size: size, text: 'text', width:'100%',
         url:'/uploads/' + filename, formatted: false};
       widgets.push(tobeCreated);
     } else {
@@ -93,7 +93,7 @@ module.exports = function (app) {
   function createWidget(req, res) {
     var createdWidget = req.body;
     var pageId = req.params["pageId"];
-    createdWidget._id = (widgets.length + 1).toString();
+    createdWidget._id = new Date().getTime().toString();
     createdWidget.pageId = pageId;
     widgets.push(createdWidget);
     res.json(createdWidget);

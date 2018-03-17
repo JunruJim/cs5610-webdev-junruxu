@@ -17,7 +17,7 @@ module.exports = function (app) {
   function createPage(req, res) {
     var createdPage = req.body;
     var websiteId = req.params["websiteId"];
-    createdPage._id = (pages.length + 1).toString();
+    createdPage._id = new Date().getTime().toString();
     createdPage.websiteId = websiteId;
     pages.push(createdPage);
     res.json(createdPage);

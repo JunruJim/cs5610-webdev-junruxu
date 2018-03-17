@@ -20,7 +20,7 @@ module.exports = function (app) {
   function createWebsite(req, res) {
     var createdWebsite = req.body;
     var userId = req.params["userId"];
-    createdWebsite._id = (websites.length + 1).toString();
+    createdWebsite._id = new Date().getTime().toString();
     createdWebsite.developerId = userId;
     websites.push(createdWebsite);
     res.json(createdWebsite);

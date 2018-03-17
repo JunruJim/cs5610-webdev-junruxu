@@ -27,7 +27,7 @@ module.exports = function (app) {
     var createdUser = req.body;
 
     // use String here to consist what User be defined in client side
-    createdUser._id = (users.length + 1).toString();
+    createdUser._id = new Date().getTime().toString();
     users.push(createdUser);
     res.json(createdUser);
   }
