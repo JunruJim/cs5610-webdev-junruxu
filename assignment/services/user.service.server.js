@@ -1,5 +1,7 @@
 module.exports = function (app) {
 
+  var userModel = require("../model/user/user.model.server");
+
   // the former one would be implemented if it is same method and same url
   app.get("/api/user/hello", helloUser);
 
@@ -9,12 +11,12 @@ module.exports = function (app) {
   app.put("/api/user/:userId", updateUser);
   app.delete("/api/user/:userId", deleteUser);
 
-  var users = [
-    { _id: '1', username: 'alice',    password: 'alice',    firstName: 'Alice',  lastName: 'Wonder' },
-    { _id: '2', username: 'bob',      password: 'bob',      firstName: 'Bob',    lastName: 'Marley' },
-    { _id: '3', username: 'charly',   password: 'charly',   firstName: 'Charly', lastName: 'Garcia' },
-    { _id: '4', username: 'jannunzi', password: 'jannunzi', firstName: 'Jose',   lastName: 'Annunzi' }
-  ];
+  // var users = [
+  //   { _id: '1', username: 'alice',    password: 'alice',    firstName: 'Alice',  lastName: 'Wonder' },
+  //   { _id: '2', username: 'bob',      password: 'bob',      firstName: 'Bob',    lastName: 'Marley' },
+  //   { _id: '3', username: 'charly',   password: 'charly',   firstName: 'Charly', lastName: 'Garcia' },
+  //   { _id: '4', username: 'jannunzi', password: 'jannunzi', firstName: 'Jose',   lastName: 'Annunzi' }
+  // ];
 
   // functions used for test
   function helloUser(req, res) {
@@ -26,65 +28,64 @@ module.exports = function (app) {
   function createUser(req, res) {
     var createdUser = req.body;
 
-    // use String here to consist what User be defined in client side
-    createdUser._id = new Date().getTime().toString();
-    users.push(createdUser);
-    res.json(createdUser);
+    // createdUser._id = new Date().getTime().toString();
+    // users.push(createdUser);
+    // res.json(createdUser);
+
+    userModel.createUser(createdUser)
+      .then(function(user){
+        res.json(user);
+      });
   }
 
   function findUserById(req, res){
     var userId = req.params["userId"];
-    var foundUser = users.find(function (user) {
-       return user._id === userId;
+    userModel.findUserById(userId).then(function (user){
+      if (user) {
+        res.json(user);
+      } else {
+        res.status(401);
+        res.json(user);
+      }
     });
-    if (foundUser){
-      res.json(foundUser);
-    } else {
-      res.status(401);
-      res.json(foundUser);
-    }
   }
 
   function updateUser(req, res) {
     var userId = req.params["userId"];
-    var foundUser = users.find(function (user) {
-      return user._id === userId;
-    });
     var user = req.body;
-    foundUser.username = user.username;
-    foundUser.password = user.password;
-    foundUser.firstName = user.firstName;
-    foundUser.lastName = user.lastName;
-    res.json(foundUser);
+    userModel.updateUser(userId, user)
+      .then(function(status){
+        res.send(status);
+      });
   }
 
   function findUserByCredentialOrUsername(req, res){
     var username = req.query["username"];
     var password = req.query["password"];
-    if (username && password){
-      var foundUserByCredential = users.find(function (user){
-        return user.username === username && user.password === password;
-      });
-      if (foundUserByCredential){
-        res.json(foundUserByCredential);
-      } else {
-        res.status(401);
-        res.json(foundUserByCredential);
-      }
+    if (username && password) {
+      userModel.findUserByCredentials(username, password)
+        .then(function(user) {
+          if (!user) {
+            res.status(401);
+            res.json(user);
+          } else {
+            res.json(user);
+          }
+        });
       return;
     }
 
     // should return a list if username is not unique
     else if (username){
-      var foundUserByUsername = users.find(function (user) {
-        return user.username === username;
-      });
-      if (foundUserByUsername) {
-        res.json(foundUserByUsername);
-      } else {
-        res.status(401);
-        res.json(foundUserByUsername);
-      }
+      userModel.findUserByUserName(username)
+        .then(function(user) {
+          if (user) {
+            res.json(user);
+          } else {
+            res.status(401);
+            res.json(user);
+          }
+        });
       return;
     }
     res.status(401);
@@ -93,12 +94,9 @@ module.exports = function (app) {
 
   function deleteUser(req, res) {
     var userId = req.params["userId"];
-    for (const i in users) {
-      if (users[i]._id === userId) {
-        const j = +i;
-        users.splice(j, 1);
-      }
-    }
-    res.send("success");
+    userModel.deleteUser(userId).then(function(status) {
+      console.log(status);
+      res.json(status);
+    });
   }
 };

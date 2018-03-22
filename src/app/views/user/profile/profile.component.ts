@@ -22,8 +22,6 @@ export class ProfileComponent implements OnInit {
     // this.activatedRoute.params.subscribe(params => {
     this.userService.updateUser(this.user._id, this.user).subscribe(
       (user: User) => {
-        this.user = user;
-        console.log(this.user);
         this.updatedFlag = true;
       }
     );
@@ -31,7 +29,7 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteUser() {
-    this.userService.deleteUser(this.user._id).subscribe();
+    this.userService.deleteUser(this.user._id).subscribe(() => {});
   }
 
   ngOnInit() {

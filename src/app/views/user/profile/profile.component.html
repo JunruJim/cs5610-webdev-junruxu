@@ -22,7 +22,10 @@
     Update button is on upper left.
   </div>
 
-  <h4> user: {{user.username}}<br/> user id: {{user._id}}<br/> </h4>
+  <h4> user: {{user.username}}<br/>
+    user id: {{user._id}}<br/>
+    create date: {{user.dateCreated}}<br/>
+  </h4>
 
   <form>
     <label for="username">Username</label>
@@ -37,6 +40,11 @@
     <label for="lastname">Last Name</label>
     <input [(ngModel)]="user.lastName" type="text" class="form-control" id="lastname" placeholder="last name" [ngModelOptions]="{standalone: true}"/>
 
+    <label for="email">Email</label>
+    <input [(ngModel)]="user.email" type="text" class="form-control" id="email" placeholder="email" [ngModelOptions]="{standalone: true}"/>
+
+    <label for="email">Phone</label>
+    <input [(ngModel)]="user.phone" type="text" class="form-control" id="phone" placeholder="phone" [ngModelOptions]="{standalone: true}"/>
     <br/>
     <button routerLink="/profile/{{user._id}}/website" class="btn btn-primary btn-block">Websites</button>
     <button routerLink="/login" (click)="deleteUser()" class="btn btn-danger btn-block">Delete User</button>

@@ -4,6 +4,9 @@ export class User {
   password: String;
   firstName: String;
   lastName: String;
+  email: String;
+  phone: String;
+  dateCreated: Date;
 
   constructor(_id: String, username: String, password: String, firstName: String, lastName: String) {
     this._id = _id;
@@ -11,5 +14,6 @@ export class User {
     this.password = password;
     this.firstName = firstName;
     this.lastName = lastName;
+
   }
 }
