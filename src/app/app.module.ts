@@ -8,6 +8,7 @@ import { UserService } from './services/user.service.client';
 import { WebsiteService } from './services/website.service.client';
 import { PageService } from './services/page.service.client';
 import { WidgetService } from './services/widget.service.client';
+import { FlickrService } from './services/flickr.service.client';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/user/login/login.component';
@@ -33,6 +34,7 @@ import { OrderByPipe } from '../../assignment/pipes/order-by-pipe/order-by-pipe.
 import { SafePipe } from '../../assignment/pipes/safe-url/safe-url.pipe';
 
 import { QuillEditorModule } from 'ngx-quill-editor';
+import { FlickrImageSearchComponent } from './views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { QuillEditorModule } from 'ngx-quill-editor';
     OrderByPipe,
     SafePipe,
     WidgetHtmlComponent,
-    WidgetTextComponent
+    WidgetTextComponent,
+    FlickrImageSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +84,10 @@ import { QuillEditorModule } from 'ngx-quill-editor';
     {
       provide: 'WidgetService',
       useClass: WidgetService
+    },
+    {
+      provide: 'FlickrService',
+      useClass: FlickrService
     }
   ],
   bootstrap: [AppComponent]
