@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
     // this.activatedRoute.params.subscribe(params => {
     this.userService.updateUser(this.user._id, this.user).subscribe(
       (user: User) => {
+        console.log(user);
         this.updatedFlag = true;
       }
     );
