@@ -45,8 +45,8 @@
         </div>
 
         <div *ngSwitchCase="'YOUTUBE'">
-          <div class="embed-responsive embed-responsive-16by9">
-            <iframe width="640" height="360" [src]="widget.url | safe" frameborder="0" allowfullscreen></iframe>
+          <div class="embed-responsive embed-responsive-16by9 youtube-widget">
+            <iframe width="560" [src]="widget.url | safe" frameborder="0" allowfullscreen></iframe>
           </div>
         </div>
 
@@ -58,8 +58,18 @@
         </div>
 
         <div *ngSwitchCase="'TEXT'">
-          <p>{{widget.text}}</p>
+          <div *ngIf="widget.formatted">
+            <quill-editor [(ngModel)]="widget.text" name="text"></quill-editor>
+          </div>
+
+          <input *ngIf="!widget.formatted && (!widget.rows || widget.rows === 1)"
+                [(ngModel)]="widget.text" placeholder="{{widget.placeholder}}" class="form-control"/>
+
+          <textarea *ngIf="!widget.formatted && (widget.rows > 1)"
+                   rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
+                   class="form-control">{{widget.text}}</textarea>
         </div>
+
       </div>
 
     </div>

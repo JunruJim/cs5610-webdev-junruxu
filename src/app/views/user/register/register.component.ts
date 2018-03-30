@@ -19,7 +19,6 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   register() {
-    this.user.dateCreated = new Date();
     if (this.user.password === this.verifyPwd) {
       this.pwInconsistentFlag = false;
       this.userService.createUser(this.user).subscribe(

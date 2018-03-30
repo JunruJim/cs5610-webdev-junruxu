@@ -20,7 +20,6 @@ export class PageEditComponent implements OnInit {
   updatePage() {
     this.pageService.updatePage(this.page._id, this.page).subscribe(
       (page: Page) => {
-        this.page = page;
         this.router.navigate(['../'], {relativeTo: this.activatedRoute});
         console.log(this.page);
       }

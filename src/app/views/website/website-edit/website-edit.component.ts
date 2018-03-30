@@ -21,7 +21,6 @@ export class WebsiteEditComponent implements OnInit {
   updateWebsite() {
     this.websiteService.updateWebsite(this.website._id, this.website).subscribe(
       (website: Website) => {
-        this.website = website;
         this.router.navigate(['../'], {relativeTo: this.activatedRoute});
         console.log(this.website);
       }

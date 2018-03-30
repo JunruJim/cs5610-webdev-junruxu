@@ -7,6 +7,10 @@ export class Widget {
   url: String;
   width: String;
   formatted: boolean;
+  rows: Number;
+  name: String;
+  dateCreated: String;
+  placeholder: String;
 
   constructor(_id: String, widgetType: String, pageId: String, size: Number = 1, text: String = 'text', width: String = '100%',
               url: String = 'url', formatted: boolean = false) {

@@ -35,6 +35,8 @@ module.exports = function (app) {
     userModel.createUser(createdUser)
       .then(function(user){
         res.json(user);
+      }, function(err) {
+        res.status(500).json(err);
       });
   }
 
@@ -44,9 +46,11 @@ module.exports = function (app) {
       if (user) {
         res.json(user);
       } else {
-        res.status(401);
+        res.status(404);
         res.json(user);
       }
+    }, function(err) {
+      res.status(500).json(err);
     });
   }
 
@@ -56,6 +60,8 @@ module.exports = function (app) {
     userModel.updateUser(userId, user)
       .then(function(status){
         res.send(status);
+      }, function(err) {
+        res.status(500).json(err);
       });
   }
 
@@ -71,6 +77,8 @@ module.exports = function (app) {
           } else {
             res.json(user);
           }
+        }, function(err) {
+          res.status(500).json(err);
         });
       return;
     }
@@ -82,13 +90,15 @@ module.exports = function (app) {
           if (user) {
             res.json(user);
           } else {
-            res.status(401);
+            res.status(404);
             res.json(user);
           }
+        }, function(err) {
+          res.status(500).json(err);
         });
       return;
     }
-    res.status(401);
+    res.status(404);
     res.send(undefined);
   }
 
@@ -97,6 +107,17 @@ module.exports = function (app) {
     userModel.deleteUser(userId).then(function(status) {
       console.log(status);
       res.json(status);
+    }, function(err) {
+      res.status(500).json(err);
     });
+
+
+    // for (const i in users) {
+    //   if (users[i]._id === userId) {
+    //     const j = +i;
+    //     users.splice(j, 1);
+    //   }
+    // }
+    // res.send("success");
   }
 };

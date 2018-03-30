@@ -23,7 +23,6 @@ export class WidgetHtmlComponent implements OnInit {
     if (!this.widget._id) {
       this.widgetService.createWidget(this.pageId, this.widget).subscribe(
         (widget: Widget) => {
-          this.widget = widget;
           this.router.navigate(['../'], {relativeTo: this.activatedRoute});
           console.log(this.widget);
         }

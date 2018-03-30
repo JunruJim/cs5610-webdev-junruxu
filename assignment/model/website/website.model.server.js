@@ -1,28 +1,54 @@
 var mongoose = require("mongoose");
-var WebsiteSchema = require("./website.schema.server");
-var WebsiteModel = mongoose.model('WebsiteModel', WebsiteSchema);
+var websiteSchema = require("./website.schema.server");
+var websiteModel = mongoose.model('websiteModel', websiteSchema);
 
 var userModel = require("../user/user.model.server");
 
-WebsiteModel.createWebsite = createWebsite;
-WebsiteModel.findWebsitesForUser = findWebSitesForUser;
+websiteModel.createWebsiteForUser = createWebsiteForUser;
+websiteModel.findAllWebsitesForUser = findAllWebsitesForUser;
+websiteModel.findWebsiteById = findWebsiteById;
+websiteModel.updateWebsite = updateWebsite;
+websiteModel.deleteWebsite = deleteWebsite;
 
-module.exports = WebsiteModel;
+module.exports = websiteModel;
 
-function findWebSitesForUser(userId){
-  return WebsiteModel.find({"developerId": userId})
-  //.populate('developerId')
-    .populate('developerId', 'username')
+function findAllWebsitesForUser(userId) {
+  return websiteModel.find({_user: userId})
+    .populate('_user')
     .exec();
 }
 
-function createWebsite(website){
-  return WebsiteModel.create(website)
-    .then(function(responseWebsite){
-      userModel.findUserById(website.developerId)
-        .then(function(user){
+function createWebsiteForUser(userId, website){
+  website._user = userId;
+  return websiteModel.create(website)
+    .then(function(responseWebsite) {
+      userModel.findUserById(responseWebsite._user)
+        .then(function(user) {
           user.websites.push(responseWebsite);
+
+          // the newly created one will not be added into websites without this line
           return user.save();
+        });
+      return responseWebsite;
+    });
+}
+
+function findWebsiteById(websiteId) {
+  return websiteModel.findById(websiteId);
+}
+
+function updateWebsite(websiteId, website) {
+  return websiteModel.update({_id: websiteId}, website);
+}
+
+function deleteWebsite(websiteId) {
+  websiteModel.findById(websiteId)
+    .then(function(website) {
+      userModel.findUserById(website._user)
+        .then(function(user) {
+          user.websites.pull({_id: websiteId});
+          user.save();
         })
     });
+  return websiteModel.deleteOne({_id: websiteId});
 }

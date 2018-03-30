@@ -3,6 +3,7 @@ export class Website {
   name: String;
   developerId: String;
   description: String;
+  dateCreated: String;
 
   constructor(_id: String, name: String, developerId: String, description: String) {
     this._id = _id;

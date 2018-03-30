@@ -1,29 +1,29 @@
 var mongoose = require("mongoose");
-var UserSchema = require("./user.schema.server");
-var UserModel = mongoose.model("UserModel", UserSchema);
-UserModel.findUserById = findUserById;
-UserModel.createUser = createUser;
-UserModel.deleteUser = deleteUser;
-UserModel.findUserByCredentials = findUserByCredentials;
-UserModel.findUserByUserName = findUserByUserName;
-UserModel.updateUser = updateUser;
+var userSchema = require("./user.schema.server");
+var userModel = mongoose.model("userModel", userSchema);
+userModel.findUserById = findUserById;
+userModel.createUser = createUser;
+userModel.deleteUser = deleteUser;
+userModel.findUserByCredentials = findUserByCredentials;
+userModel.findUserByUserName = findUserByUserName;
+userModel.updateUser = updateUser;
 
-module.exports = UserModel;
+module.exports = userModel;
 
-function createUser(user){
-  return UserModel.create(user);
+function createUser(user) {
+  return userModel.create(user);
 }
 
-function findUserById(userId){
-  return UserModel.findById(userId);
+function findUserById(userId) {
+  return userModel.findById(userId);
 }
 
-function findUserByUserName(username){
-  return UserModel.findOne({username: username});
+function findUserByUserName(username) {
+  return userModel.findOne({username: username});
 }
 
-function findUserByCredentials(username, password){
-  return UserModel.findOne({username: username, password: password});
+function findUserByCredentials(username, password) {
+  return userModel.findOne({username: username, password: password});
 }
 
 // function findAllUsers(){
@@ -32,10 +32,10 @@ function findUserByCredentials(username, password){
 //   })
 // }
 
-function updateUser(userId, user){
-  return UserModel.update({_id: userId}, user);
+function updateUser(userId, user) {
+  return userModel.update({_id: userId}, user);
 }
 
 function deleteUser(userId) {
-  return UserModel.deleteOne({_id: userId});
+  return userModel.deleteOne({_id: userId});
 }
