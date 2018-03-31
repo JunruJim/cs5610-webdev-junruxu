@@ -55,10 +55,10 @@ module.exports = function (app) {
         url:'/uploads/' + filename, formatted: false};
       widgetModel.createWidget(pageId, tobeCreated);
     } else {
-      var foundWidget = widgetModel.find(function (widget) {
-        return widget._id === widgetId;
-      });
-      foundWidget.url = "/uploads/" + filename;
+      widgetModel.findWidgetById(widgetId)
+        .then(function(foundWidget) {
+          foundWidget.url = "/uploads/" + filename;
+        });
     }
 
     // res.redirect("http://localhost:4200/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
