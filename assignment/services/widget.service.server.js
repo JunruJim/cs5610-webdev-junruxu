@@ -36,6 +36,7 @@ module.exports = function (app) {
     var userId = req.body.userId;
     var websiteId = req.body.websiteId;
     var pageId = req.body.pageId;
+    console.log(widgetId);
 
     if(myFile == null) {
       // res.redirect("http://localhost:4200/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
@@ -55,7 +56,6 @@ module.exports = function (app) {
         url:'/uploads/' + filename, formatted: false};
       widgetModel.createWidget(pageId, tobeCreated)
         .then(function (widget){
-
           res.redirect("https://cs5610-webdev-junruxu.herokuapp.com/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
         }, function(err) {
         });
@@ -63,15 +63,13 @@ module.exports = function (app) {
       widgetModel.findWidgetById(widgetId)
         .then(function(foundWidget) {
           foundWidget.url = '/uploads/' + filename;
-          widgetModel.updateWidget(foundWidget._id.toString(), foundWidget)
+          widgetModel.updateWidget(foundWidget.str, foundWidget)
             .then(function(status) {
-
               res.redirect("https://cs5610-webdev-junruxu.herokuapp.com/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
             }, function(err) {
             });
         });
     }
-
     // res.redirect("http://localhost:4200/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
   }
 

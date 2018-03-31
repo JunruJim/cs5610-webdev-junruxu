@@ -30,13 +30,12 @@
         <p>Points:</p>
         <ol>
           <li>Created website will also be pushed into user's website array (so as page and widget)</li>
+          <li>Updated website will also be updated in user's website array (so as page and widget)</li>
           <li>Deleted website will also be deleted from user's website array (so as page and widget)</li>
         </ol>
-        <p>Changes:</p>
+        <p>Bug:</p>
         <ol>
-          <li>Attribute "type" in widget schema (mongodb side) changed into "widgetType" to maintain consistency with client side model</li>
-          <li>Attribute "name", "rows" and "placeholder" etc. in widget model (client side) was added</li>
-          <li>Enum type "INPUT" in widget model (mongodb side) changed into "TEXT"</li>
+          <li>When updating a image widget by uploading a image from local, the url cannot be updated in the corresponding page's widgets list (but it would be updated in the widget collection)</li>
         </ol>
       </div>
     </div>
