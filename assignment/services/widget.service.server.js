@@ -63,7 +63,7 @@ module.exports = function (app) {
       widgetModel.findWidgetById(widgetId)
         .then(function(foundWidget) {
           foundWidget.url = '/uploads/' + filename;
-          widgetModel.updateWidget(String(foundWidget._id), foundWidget)
+          widgetModel.updateWidget(foundWidget._id.toString(), foundWidget)
             .then(function(status) {
               res.send(status);
             }, function(err) {
