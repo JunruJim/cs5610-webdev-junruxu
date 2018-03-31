@@ -30,7 +30,7 @@ module.exports = function (app) {
   // ];
 
   function uploadImage(req, res) {
-    var widgetId      = String(req.body.widgetId);
+    var widgetId      = req.body.widgetId;
     var width         = req.body.width;
     var myFile        = req.file;
     var userId = req.body.userId;
@@ -63,7 +63,7 @@ module.exports = function (app) {
       widgetModel.findWidgetById(widgetId)
         .then(function(foundWidget) {
           foundWidget.url = '/uploads/' + filename;
-          widgetModel.updateWidget(foundWidget._id, foundWidget)
+          widgetModel.updateWidget(String(foundWidget._id), foundWidget)
             .then(function(status) {
               res.send(status);
             }, function(err) {
