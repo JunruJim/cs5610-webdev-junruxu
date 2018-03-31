@@ -56,18 +56,18 @@ function findWidgetById(widgetId) {
 }
 
 function updateWidget(widgetId, widget) {
-  widgetModel.findById(widgetId)
-    .then(function(foundWidget) {
-      pageModel.findPageById(foundWidget._page)
-        .then(function(page) {
-          for (var i = 0; i < page.widgets.length; i++) {
-            if (String(page.widgets[i]._id) === String(widgetId)) {
-              page.widgets[i] = widget;
-            }
-          }
-          page.save();
-        })
-    });
+  // widgetModel.findById(widgetId)
+  //   .then(function(foundWidget) {
+  //     pageModel.findPageById(foundWidget._page)
+  //       .then(function(page) {
+  //         for (var i = 0; i < page.widgets.length; i++) {
+  //           if (String(page.widgets[i]._id) === String(widgetId)) {
+  //             page.widgets[i] = widget;
+  //           }
+  //         }
+  //         page.save();
+  //       })
+  //   });
   return widgetModel.update({_id: widgetId}, widget);
 }
 
