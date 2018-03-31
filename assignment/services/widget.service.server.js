@@ -60,12 +60,15 @@ module.exports = function (app) {
           res.status(500).json(err);
         });
     } else {
-      var renewedWidget = { url: "/uploads/" + filename };
-      widgetModel.updateWidget(widgetId, renewedWidget)
-        .then(function(status) {
-          res.send(status);
-        }, function(err) {
-          res.status(500).json(err);
+      widgetModel.findWidgetById(widgetId)
+        .then(function(foundWidget) {
+          foundWidget.url = '/uploads/' + filename;
+          widgetModel.updateWidget(widgetId, foundWidget)
+            .then(function(status) {
+              res.send(status);
+            }, function(err) {
+              res.status(500).json(err);
+            });
         });
     }
 
