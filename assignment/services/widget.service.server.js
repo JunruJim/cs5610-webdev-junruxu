@@ -53,13 +53,19 @@ module.exports = function (app) {
     if (!widgetId) {
       var tobeCreated = {_id: undefined, widgetType: 'IMAGE', pageId: pageId, size: size, text: 'text', width:'100%',
         url:'/uploads/' + filename, formatted: false};
-      widgetModel.createWidget(pageId, tobeCreated);
+      widgetModel.createWidget(pageId, tobeCreated)
+        .then(function (widget){
+          res.json(widget);
+        }, function(err) {
+          res.status(500).json(err);
+        });
     } else {
-      widgetModel.findWidgetById(widgetId)
-        .then(function(foundWidget) {
-          var parsedWidget = foundWidget;
-          parsedWidget.url = "/uploads/" + filename;
-          widgetModel.updateWidget(widgetId, parsedWidget);
+      var renewedWidget = { url: "/uploads/" + filename };
+      widgetModel.updateWidget(widgetId, renewedWidget)
+        .then(function(status) {
+          res.send(status);
+        }, function(err) {
+          res.status(500).json(err);
         });
     }
 
