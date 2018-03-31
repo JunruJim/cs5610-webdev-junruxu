@@ -30,7 +30,7 @@ module.exports = function (app) {
   // ];
 
   function uploadImage(req, res) {
-    var widgetId      = req.body.widgetId;
+    var widgetId      = String(req.body.widgetId);
     var width         = req.body.width;
     var myFile        = req.file;
     var userId = req.body.userId;
