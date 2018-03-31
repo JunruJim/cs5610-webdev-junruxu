@@ -53,18 +53,26 @@ module.exports = function (app) {
     if (!widgetId) {
       var tobeCreated = {_id: undefined, widgetType: 'IMAGE', pageId: pageId, size: size, text: 'text', width:'100%',
         url:'/uploads/' + filename, formatted: false};
-      widgetModel.createWidget(pageId, tobeCreated);
+      widgetModel.createWidget(pageId, tobeCreated)
+        .then(function (widget){
+
+          res.redirect("https://cs5610-webdev-junruxu.herokuapp.com/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+        }, function(err) {
+        });
     } else {
       widgetModel.findWidgetById(widgetId)
         .then(function(foundWidget) {
           foundWidget.url = '/uploads/' + filename;
-          widgetModel.updateWidget(foundWidget._id, foundWidget);
-          widgetModel.updateWidget(foundWidget._id, foundWidget);
+          widgetModel.updateWidget(foundWidget._id.toString(), foundWidget)
+            .then(function(status) {
+
+              res.redirect("https://cs5610-webdev-junruxu.herokuapp.com/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
+            }, function(err) {
+            });
         });
     }
 
     // res.redirect("http://localhost:4200/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
-    res.redirect("https://cs5610-webdev-junruxu.herokuapp.com/profile/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
   }
 
   function reorderWidgets(req,res) {
