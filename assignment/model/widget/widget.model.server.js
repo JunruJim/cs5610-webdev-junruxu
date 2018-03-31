@@ -29,10 +29,17 @@ function findAllWidgetsForPage(pageId) {
   //   .exec();
 
   // use page's widget list here to implement sortable
+  // return pageModel.findPageById(pageId)
+  //   .then(function(page) {
+  //     return page.widgets;
+  //   });
+
   return pageModel.findPageById(pageId)
+    .populate('widgets')
     .then(function(page) {
-      return page.widgets;
-    });
+        return page.widgets;
+      }
+    )
 }
 
 function createWidget(pageId, widget){
