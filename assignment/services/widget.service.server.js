@@ -58,6 +58,7 @@ module.exports = function (app) {
       widgetModel.findWidgetById(widgetId)
         .then(function(foundWidget) {
           foundWidget.url = "/uploads/" + filename;
+          widgetModel.updateWidget(widgetId, foundWidget);
         });
     }
 
