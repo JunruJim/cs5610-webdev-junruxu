@@ -51,11 +51,11 @@ module.exports = function (app) {
     var mimetype      = myFile.mimetype;
 
     if (!widgetId) {
-      var tobeCreated = {_id: new Date().getTime().toString(), widgetType: 'IMAGE', pageId: pageId, size: size, text: 'text', width:'100%',
+      var tobeCreated = {_id: undefined, widgetType: 'IMAGE', pageId: pageId, size: size, text: 'text', width:'100%',
         url:'/uploads/' + filename, formatted: false};
-      widgets.push(tobeCreated);
+      widgetModel.createWidget(pageId, tobeCreated);
     } else {
-      var foundWidget = widgets.find(function (widget) {
+      var foundWidget = widgetModel.find(function (widget) {
         return widget._id === widgetId;
       });
       foundWidget.url = "/uploads/" + filename;
