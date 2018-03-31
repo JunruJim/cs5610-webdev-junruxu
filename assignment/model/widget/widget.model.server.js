@@ -29,17 +29,17 @@ function findAllWidgetsForPage(pageId) {
   //   .exec();
 
   // use page's widget list here to implement sortable
-  // return pageModel.findPageById(pageId)
-  //   .then(function(page) {
-  //     return page.widgets;
-  //   });
-
   return pageModel.findPageById(pageId)
-    .populate('widgets')
     .then(function(page) {
-        return page.widgets;
-      }
-    )
+      return page.widgets;
+    });
+
+  // return pageModel.findPageById(pageId)
+  //   .populate('widgets')
+  //   .then(function(page) {
+  //       return page.widgets;
+  //     }
+  //   )
 }
 
 function createWidget(pageId, widget){
@@ -63,18 +63,18 @@ function findWidgetById(widgetId) {
 }
 
 function updateWidget(widgetId, widget) {
-  // widgetModel.findById(widgetId)
-  //   .then(function(foundWidget) {
-  //     pageModel.findPageById(foundWidget._page)
-  //       .then(function(page) {
-  //         for (var i = 0; i < page.widgets.length; i++) {
-  //           if (String(page.widgets[i]._id) === String(widgetId)) {
-  //             page.widgets[i] = widget;
-  //           }
-  //         }
-  //         page.save();
-  //       })
-  //   });
+  widgetModel.findById(widgetId)
+    .then(function(foundWidget) {
+      pageModel.findPageById(foundWidget._page)
+        .then(function(page) {
+          for (var i = 0; i < page.widgets.length; i++) {
+            if (String(page.widgets[i]._id) === String(widgetId)) {
+              page.widgets[i] = widget;
+            }
+          }
+          page.save();
+        })
+    });
   return widgetModel.update({_id: widgetId}, widget);
 }
 
