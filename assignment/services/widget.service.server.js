@@ -57,8 +57,9 @@ module.exports = function (app) {
     } else {
       widgetModel.findWidgetById(widgetId)
         .then(function(foundWidget) {
-          foundWidget.url = "/uploads/" + filename;
-          widgetModel.updateWidget(widgetId, foundWidget);
+          var parsedWidget = foundWidget;
+          parsedWidget.url = "/uploads/" + filename;
+          widgetModel.updateWidget(widgetId, parsedWidget);
         });
     }
 
