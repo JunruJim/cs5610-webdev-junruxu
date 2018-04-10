@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   // use Inject instead of import
   constructor(
     @Inject('UserService') private userService,
+    @Inject('SharedService') private sharedService,
     private router: Router
   ) {}
 
@@ -54,15 +55,17 @@ export class LoginComponent implements OnInit {
     this.username = this.loginForm.value.username;
     this.password = this.loginForm.value.password;
 
-    this.userService.findUserByCredential(this.username, this.password).subscribe(
-      (user: User) => {
-        console.log(user);
-        this.errorFlag = false;
-        this.router.navigate(['/profile', user._id]);
-      }, (error: any) => {
-        this.errorFlag = true;
-      }
-    );
+    this.userService.login(this.username, this.password)
+      .subscribe(
+        (data: any) => {
+          this.sharedService.user = data;
+          this.errorFlag = false;
+          this.router.navigate(['/profile']);
+        },
+        (error: any) => {
+          this.errorFlag = true;
+        }
+      );
   }
 
   ngOnInit() {

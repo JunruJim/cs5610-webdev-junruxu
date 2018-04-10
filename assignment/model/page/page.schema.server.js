@@ -7,7 +7,9 @@ var pageSchema = mongoose.Schema({
   name: String,
   title: String,
   description: String,
-  widgets:[widgetSchema],
+  widgets:[
+    {type: mongoose.Schema.Types.ObjectId, ref: 'widgetModel'}
+  ],
 
   // or do it this way here. then it can be update automatically!
   // widgets: [

@@ -9,8 +9,8 @@ var mongoose = require('mongoose');
 //   connectionString += '@ds111648.mlab.com:11648/heroku_jmhwjlk9/webdev'; // use yours
 // }
 
-
-// var db = mongoose.connect('mongodb://localhost:27017/webdev', {useMongoClient: true}); // for local mongodb
+// local --dbpath /data/db use webdev
+// var db = mongoose.connect('mongodb://localhost:27017/webdev'); // for local mongodb
 var db = mongoose.connect('mongodb://admin:admin@ds111648.mlab.com:11648/heroku_jmhwjlk9', {useMongoClient: true});
 
 module.exports = db;

@@ -7,8 +7,15 @@ var userSchema = mongoose.Schema({
   firstname:String,
   lastname: String,
   email: String,
+  facebook : {
+    token: String,
+    id: String,
+    displayName : String
+  },
   phone: String,
-  websites:[websiteSchema],
+  websites:[
+    {type: mongoose.Schema.Types.ObjectId, ref: 'websiteModel'}
+  ],
   dateCreated: {type: Date, default: Date.now}
 }, {collection:'user'});
 

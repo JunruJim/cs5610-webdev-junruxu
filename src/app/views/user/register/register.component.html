@@ -2,8 +2,8 @@
   <h1>Register</h1>
 
   <!-- generate message when updated -->
-  <div *ngIf="pwInconsistentFlag" class="alert alert-danger">
-    {{pwInconsistentMsg}}
+  <div *ngIf="errorFlag" class="alert alert-danger">
+    {{errorMsg}}
   </div>
 
   <form>

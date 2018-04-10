@@ -48,7 +48,7 @@
     <br/>
     <button routerLink="/profile/{{user._id}}/website" class="btn btn-primary btn-block">Websites</button>
     <button routerLink="/login" (click)="deleteUser()" class="btn btn-danger btn-block">Delete User</button>
-    <button routerLink="/login" class="btn btn-danger btn-block">Log Out</button>
+    <button (click)="logout()" class="btn btn-danger btn-block">Log Out</button>
   </form>
 </div>
 

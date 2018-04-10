@@ -1,4 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
+import { ModuleWithProviders } from '@angular/core';
 
 import { LoginComponent } from './views/user/login/login.component';
 import { ProfileComponent } from './views/user/profile/profile.component';
@@ -12,13 +13,14 @@ import { PageNewComponent } from './views/page/page-new/page-new.component';
 import { WidgetListComponent } from './views/widget/widget-list/widget-list.component';
 import { WidgetChooserComponent } from './views/widget/widget-chooser/widget-chooser.component';
 import { WidgetEditComponent } from './views/widget/widget-edit/widget-edit.component';
-import {FlickrImageSearchComponent} from './views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
+import { FlickrImageSearchComponent } from './views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
+import { AuthGuard } from './services/auth-guard.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile/:userId', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'profile/:userId/website', component: WebsiteListComponent },
   { path: 'profile/:userId/website/new', component: WebsiteNewComponent },
   { path: 'profile/:userId/website/:websiteId', component: WebsiteEditComponent },
@@ -32,4 +34,4 @@ const appRoutes: Routes = [
   // { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
-export const routing = RouterModule.forRoot(appRoutes);
+export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

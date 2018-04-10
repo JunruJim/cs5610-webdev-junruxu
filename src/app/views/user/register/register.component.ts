@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   user: User;
   verifyPwd: String;
-  pwInconsistentFlag: Boolean = false;
-  pwInconsistentMsg: String = 'Password inconsistent!';
+  errorFlag: Boolean = false;
+  errorMsg: String = 'Password inconsistent!';
 
   constructor(
     @Inject('UserService') private userService,
@@ -20,16 +20,20 @@ export class RegisterComponent implements OnInit {
 
   register() {
     if (this.user.password === this.verifyPwd) {
-      this.pwInconsistentFlag = false;
-      this.userService.createUser(this.user).subscribe(
+      this.errorFlag = false;
+      this.userService.register(this.user.username, this.user.password).subscribe(
         (user: User) => {
           this.user = user;
           console.log(this.user);
-          this.router.navigate(['/profile', user._id]);
+          this.router.navigate(['/profile']);
+        }, (err: any) => {
+          this.errorFlag = true;
+          this.errorMsg = 'Username unavailable!';
         }
       );
     } else {
-      this.pwInconsistentFlag = true;
+      this.errorFlag = true;
+      this.errorMsg = 'Password inconsistent!';
     }
   }
 
