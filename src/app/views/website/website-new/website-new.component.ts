@@ -15,6 +15,7 @@ export class WebsiteNewComponent implements OnInit {
 
   constructor(
     @Inject('WebsiteService') private websiteService,
+    @Inject('SharedService') private sharedService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -31,7 +32,7 @@ export class WebsiteNewComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
-      this.userId = params['userId'];
+      this.userId = this.sharedService.user._id;
     });
     this.website = this.websiteService.dumpWebsite();
     this.websiteService.findWebsitesByUser(this.userId).subscribe(

@@ -14,6 +14,7 @@ export class WebsiteEditComponent implements OnInit {
 
   constructor(
     @Inject('WebsiteService') private websiteService,
+    @Inject('SharedService') private sharedService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -42,7 +43,7 @@ export class WebsiteEditComponent implements OnInit {
           this.website = website;
         }
       );
-      this.websiteService.findWebsitesByUser(params['userId']).subscribe(
+      this.websiteService.findWebsitesByUser(this.sharedService.user._id).subscribe(
         (websites: Website[]) => {
           this.websites = websites;
         }

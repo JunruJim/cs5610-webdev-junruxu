@@ -19,6 +19,7 @@ export class WidgetImageComponent implements OnInit {
 
   constructor(
     @Inject('WidgetService') private widgetService,
+    @Inject('SharedService') private sharedService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -55,7 +56,7 @@ export class WidgetImageComponent implements OnInit {
       this.widgetId = params['widgetId'];
       this.pageId = params['pageId'];
       this.websiteId = params['websiteId'];
-      this.userId = params['userId'];
+      this.userId = this.sharedService.user._id;
       if (this.widgetId === 'image') {
         this.widget = this.widgetService.dumpWidget();
         this.widget.widgetType = 'IMAGE';
