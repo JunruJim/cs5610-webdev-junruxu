@@ -10,9 +10,9 @@ module.exports = function (app) {
   // get from facebook for developers
   // add heroku urls on the page of facebook for developer
   var facebookConfig = {
-    clientID     : 'process.env.FB_CLIENT_ID_WAM',
-    clientSecret : 'process.env.FB_CLIENT_SECRET_WAM',
-    callbackURL  : 'process.env.FB_CALL_BACK_URL_WAM' // '/auth/facebook/callback'
+    clientID     : process.env.FB_CLIENT_ID_WAM,
+    clientSecret : process.env.FB_CLIENT_SECRET_WAM,
+    callbackURL  : process.env.FB_CALL_BACK_URL_WAM // '/auth/facebook/callback'
   };
 
   // the former one would be implemented if it is same method and same url
