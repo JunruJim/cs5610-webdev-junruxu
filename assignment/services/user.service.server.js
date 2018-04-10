@@ -41,7 +41,7 @@ module.exports = function (app) {
       successRedirect: '/profile',
       failureRedirect: '/login'
     }));
-  app.get ('/facebook/login', passport.authenticate('facebook', { scope : 'email' }));
+  app.get ('/auth/facebook/login', passport.authenticate('facebook', { scope : 'email' }));
 
   // var users = [
   //   { _id: '1', username: 'alice',    password: 'alice',    firstName: 'Alice',  lastName: 'Wonder' },
