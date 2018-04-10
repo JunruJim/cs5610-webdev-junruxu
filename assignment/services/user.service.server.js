@@ -121,7 +121,7 @@ module.exports = function (app) {
               facebook: {
                 id:    profile.id,
                 token: token,
-                displayName: username
+                displayName: 'username'
               }
             };
             return userModel.createUser(newFacebookUser);
